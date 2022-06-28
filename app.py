@@ -11,7 +11,7 @@ import seaborn as sns
 #from st_aggrid import GridOptionsBuilder, AgGrid, GridUpdateMode, DataReturnMode
 path_var = "https://github.com/yanivniv/streamlit/blob/main/"
 
-@st.experimental_memo
+#@st.experimental_memo
 def load_data():
     #df = pd.read_csv('c:\castpone\df_final.csv')
     df = pd.read_csv('https://github.com/yanivniv/streamlit/blob/main/df_final.csv')
@@ -22,7 +22,7 @@ def load_data():
     model = pickle.load(picklefile)       
     return df,model,X
 
-@st.experimental_memo
+#@st.experimental_memo
 def load_model():
     #df = pd.read_csv('c:\castpone\df_final.csv')
     df = pd.read_csv('https://github.com/yanivniv/streamlit/blob/main/df_final.csv')
