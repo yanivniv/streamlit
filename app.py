@@ -130,7 +130,7 @@ if app_mode=='Dynamic Prediction':
         ax = sns.distplot(df[df.price<1500].price, kde=False,fit=stats.norm)
         plt.xlim(0,1500)
         plt.axvline(result, c='green',linestyle='--')
-        plt.text(result,0.005,' $'  + str(result[0].round(1)) + ' - Pricer then ' + str(round(percentile,0)) + '% of the other listings in NY')
+        plt.text(result,0.005,' $'  + str(result[0].round(1)) + ' - Pricier then ' + str(round(percentile,0)) + '% of the other listings in NY')
         plt.title('Night Price Plot')
 
         st.pyplot(plt)
