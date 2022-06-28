@@ -19,8 +19,11 @@ def load_data():
     #df = pd.read_csv('c:\castpone\df_final.csv')
     df = pd.read_csv('https://raw.githubusercontent.com/yanivniv/streamlit/main/df_final.csv')
     X = pd.read_csv('https://raw.githubusercontent.com/yanivniv/streamlit/main/X_new.csv')                
-    picklefile = open("c:/castpone/top_10_model.pkl", "rb")
-    model = pickle.load(picklefile)       
+    #picklefile = open("c:/castpone/top_10_model.pkl", "rb")
+    #model = pickle.load(picklefile)       
+    mLink = 'https://github.com/yanivniv/streamlit/raw/main/top_10_model.pkl'
+    mfile = BytesIO(requests.get(mLink).content)        
+    model = pickle.load(mfile)           
     return df,model,X
 
 @st.experimental_memo
