@@ -1,7 +1,7 @@
 shap
 streamlit_shap
 numpy
-streamlit
+lightgbm
 scipy
 pandas
 matplotlib
