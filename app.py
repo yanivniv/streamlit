@@ -11,16 +11,13 @@ import seaborn as sns
 from io import BytesIO
 import requests
 
-#from st_aggrid import GridOptionsBuilder, AgGrid, GridUpdateMode, DataReturnMode
 path_var = "https://github.com/yanivniv/streamlit/blob/main/"
 
 @st.experimental_memo
 def load_data():
-    #df = pd.read_csv('c:\castpone\df_final.csv')
+    ''' loading the data (Model, df, X) '''
     df = pd.read_csv('https://raw.githubusercontent.com/yanivniv/streamlit/main/df_final.csv')
     X = pd.read_csv('https://raw.githubusercontent.com/yanivniv/streamlit/main/X_new.csv')                
-    #picklefile = open("c:/castpone/top_10_model.pkl", "rb")
-    #model = pickle.load(picklefile)       
     mLink = 'https://github.com/yanivniv/streamlit/raw/main/top_10_model.pkl'
     mfile = BytesIO(requests.get(mLink).content)        
     model = pickle.load(mfile)           
@@ -28,9 +25,8 @@ def load_data():
 
 @st.experimental_memo
 def load_model():
-    #df = pd.read_csv('c:\castpone\df_final.csv')
+    ''' loading the data (Model, df) '''
     df = pd.read_csv('https://raw.githubusercontent.com/yanivniv/streamlit/main/df_final.csv')
-    #X = pd.read_csv('c:\castpone\X_new.csv')                
     mLink = 'https://github.com/yanivniv/streamlit/raw/main/top_10_model.pkl'
     mfile = BytesIO(requests.get(mLink).content)        
     model = pickle.load(mfile)       
@@ -40,6 +36,7 @@ app_mode = st.sidebar.selectbox('Select Page',['Resume','Model Feature Importanc
 
 if app_mode=='Model Feature Importance': 
 
+    ''' loading the data '''
     st.title('Airbnb Prediction Feature Importance') 
     df,model,X = load_data()
 
@@ -63,8 +60,11 @@ if app_mode=='Model Feature Importance':
 
 
 if app_mode=='Dynamic Prediction':
+    
+    # (1) Loading data
     df,model = load_model()
 
+    # (2) Getting User Input
     st.write("## Property Questions")
     room_type = st.selectbox('What is the room type',("Entire Home","Private Room","Other"))
     loction = st.selectbox('Is it in Manhattan',("Yes","No")) 
@@ -74,7 +74,7 @@ if app_mode=='Dynamic Prediction':
     location_score = st.number_input("What is the predicted location score by users (1-5)",min_value=1, max_value=5)
     gym_var = st.selectbox('Does the property have Gym',("Yes","No")) 
     
-
+    # (3) Transforming raw user input to model digestable varaibles
 
     if room_type == "Private Room":
         room_type_Entire = 0
@@ -108,6 +108,8 @@ if app_mode=='Dynamic Prediction':
     else:
         gym = 0
 
+    # wrapping all features into a list 
+    
     features = [room_type_Entire
                 ,neighbourhood_group_cleansed_Manhattan
                 ,accomodates
@@ -123,9 +125,15 @@ if app_mode=='Dynamic Prediction':
     feature_to_model = np.array(features).reshape(1, -1)
 
     if st.button("Predict Night Price"):
+        
+        # firing an event to predict the score
+        
         result = model.predict(feature_to_model)
         st.write("The suggested nightly price based on your inputs is $" + str(result[0].round(1)))
         st.balloons()
+        
+        # plotting the score on displot
+        
         percentile = stats.percentileofscore(df.price, result[0])
         ax = sns.distplot(df[df.price<1500].price, kde=False,fit=stats.norm)
         plt.xlim(0,1500)
