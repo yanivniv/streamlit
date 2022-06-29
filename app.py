@@ -192,7 +192,7 @@ if app_mode=='Resume':
     • Partnering with business leaders to understand strategic challenges and delivering solutions and insights, which includes dashboard definitions / KPI / Scorecards. <br>
     </p>
 
-    <h2> Data Scientist </h2> <h4> Aug 2015 - Feb 2018 ·  2 yrs 7 mos,  Matrix-IFS (Deutsche Bank), NY </h4> 
+    <h2> Data Scientist </h2> <h4> Aug 2015 - Feb 2018 ·  2 yrs 7 mos,  Maccabi, Israel </h4> 
     <p>    
     • Solving fraud modeling sensitivity: Production delivered classification, regression and clustering models to predict trading/fraud activities, and marketing operations <br>
     • Optimizing compliance efforts: Developed cross-departments models supporting bank compliance analysts decisions - saving 20 working hours per case on average, reaching combined savings of $700k/yr. <br>
